@@ -17,12 +17,12 @@ sub new {
         hostname    => $$args{hostname},
         auth        => $auth,
         api_version => $$args{api_version} || "3.5.5",
-	};
+    };
     $self->{url} = "https://$self->{hostname}";
     $self->{ua} = LWP::UserAgent->new;
 
-	bless $self, $class;
-	return $self;
+    bless $self, $class;
+    return $self;
 }
 
 
