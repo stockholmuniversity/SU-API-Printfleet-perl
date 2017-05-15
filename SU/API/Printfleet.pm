@@ -2,12 +2,14 @@ package SU::API::Printfleet;
 
 use strict;
 use warnings;
+use utf8;
 
 use LWP::UserAgent;
 use HTTP::Request;
 use URI::Escape;
 use MIME::Base64;
 use JSON;
+use Carp;
 
 
 sub new {
@@ -39,7 +41,11 @@ sub do_request {
     my $ua = LWP::UserAgent->new;
 
     my $response = $ua->request($req);
-    return decode_json($response->decoded_content);
+    if ($response->is_success){
+        return decode_json($response->decoded_content);
+    }else{
+        croak $response->status_line;
+    }
 }
 
 1;
